@@ -29,7 +29,7 @@ print("Model Trained")
 while True:
     stream = io.BytesIO()
     time.sleep(2)
-    camera.capture(stream, format='jpeg')
+    camera.capture(stream, format='bmp')
     # Construct a numpy array from the stream
     data = np.frombuffer(stream.getvalue(), dtype=np.uint8)
     print(img_clf.predict_labels(img_clf.extract_image_features(data)))
