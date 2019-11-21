@@ -5,6 +5,8 @@ import re
 import scipy.stats
 from sklearn import svm, metrics, model_selection
 from skimage import io, feature, filters, exposure, color
+from joblib import dump, load
+
 
 
 class ImageClassifier:
@@ -17,7 +19,7 @@ class ImageClassifier:
 
     def load_data_from_folder(self, dir):
         # read all images into an image collection
-        ic = io.ImageCollection(dir + "*.bmp", load_func=self.imread_convert)
+        ic = io.ImageCollection(dir + "Processed/*.bmp", load_func=self.imread_convert)
 
         # create one large array of image data
         data = io.concatenate_images(ic)
@@ -86,14 +88,17 @@ def main():
     img_clf = ImageClassifier()
 
     # load images
+    print("Loading Images")
     (train_raw, train_labels) = img_clf.load_data_from_folder('./train/')
     (test_raw, test_labels) = img_clf.load_data_from_folder('./test/')
 
     # convert images into features
+    print("Extracting features from images")
     train_data = img_clf.extract_image_features(train_raw)
     test_data = img_clf.extract_image_features(test_raw)
 
     # train model and test on training data
+    print("Training Model")
     img_clf.train_classifier(train_data, train_labels)
     predicted_labels = img_clf.predict_labels(train_data)
     print("\nTraining results")
@@ -109,6 +114,8 @@ def main():
     print("Confusion Matrix:\n", metrics.confusion_matrix(test_labels, predicted_labels))
     print("Accuracy: ", metrics.accuracy_score(test_labels, predicted_labels))
     print("F1 score: ", metrics.f1_score(test_labels, predicted_labels, average='micro'))
+
+    dump(img_clf, "model.joblib")
 
 
 if __name__ == "__main__":
