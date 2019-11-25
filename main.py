@@ -33,7 +33,7 @@ camera.start_preview()
 while True:
     stream = io.BytesIO()
     time.sleep(1)
-    camera.capture(stream, resize=(352, 240))
+    camera.capture(stream, format="bmp", resize=(352, 240))
     image = Image.open(stream)
     data = np.array(image)
     # Construct a numpy array from the stream
