@@ -34,7 +34,7 @@ while True:
     time.sleep(2)
 
     output = np.empty((240, 352, 3), dtype=np.uint8)
-    camera.capture(output, format="rgb", resize=(352, 240))
+    camera.capture(output, format="bmp", resize=(352, 240))
 
     # Construct a numpy array from the stream
     features = img_clf.extract_image_features([output])
