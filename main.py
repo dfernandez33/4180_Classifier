@@ -30,7 +30,7 @@ print("Model Trained")
 while True:
     stream = io.BytesIO()
     time.sleep(2)
-    output = np.empty((240, 340, 3), dtype=np.uint8)
+    output = np.empty((240, 352, 3), dtype=np.uint8)
     camera.capture(output, format="rgb", resize=(340, 240))
     # Construct a numpy array from the stream
     features = img_clf.extract_image_features([output])
