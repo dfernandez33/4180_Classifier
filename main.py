@@ -8,7 +8,7 @@ import picamera
 
 print("Starting camera")
 camera = picamera.PiCamera()
-camera.resolution = (320, 240)
+camera.resolution = (340, 240)
 
 print("starting model training")
 
@@ -30,8 +30,8 @@ print("Model Trained")
 while True:
     stream = io.BytesIO()
     time.sleep(2)
-    output = np.empty((320, 240, 3), dtype=np.uint8)
-    camera.capture(output, format="rgb", resize=(320, 240))
+    output = np.empty((240, 340, 3), dtype=np.uint8)
+    camera.capture(output, format="rgb", resize=(340, 240))
     # Construct a numpy array from the stream
     features = img_clf.extract_image_features([output])
     print(img_clf.predict_labels(features))
