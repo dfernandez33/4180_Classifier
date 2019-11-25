@@ -31,6 +31,6 @@ while True:
     time.sleep(2)
     camera.capture(stream, format='bmp')
     # Construct a numpy array from the stream
-    data = np.frombuffer(stream.getvalue(), dtype=np.uint8)
-    features = img_clf.extract_image_features([data]).reshape(1, -1)
+    data = [np.frombuffer(stream.getvalue(), dtype=np.uint8)]
+    features = img_clf.extract_image_features(data)
     print(img_clf.predict_labels(features))
