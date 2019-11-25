@@ -31,9 +31,11 @@ print("Model Trained")
 camera.start_preview()
 
 while True:
-    camera.capture("current.bmp", resize=(352, 240))
-    image = Image.open("current.bmp")
+    stream = io.BytesIO()
+    time.sleep(1)
+    camera.capture(stream, resize=(352, 240))
+    image = Image.open(stream)
     data = np.array(image)
     # Construct a numpy array from the stream
     features = img_clf.extract_image_features([data])
-    print(img_clf.predict_labels(features))
+    print(img_clf.predict_labels(features)[0])
