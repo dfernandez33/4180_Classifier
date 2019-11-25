@@ -7,6 +7,9 @@ import picamera
 myargs = sys.argv[1:]
 
 camera = picamera.PiCamera()
+camera.resolution = (352, 240)
+camera.color_effects = (128, 128)  # turn camera to black and white
+
 
 if len(myargs) <= 1:
     sys.exit("Incorrect arguments")
@@ -18,6 +21,6 @@ print("Taking ", num_images_per_type, "images each of ", myargs[1:])
 for image_type in myargs[1:]:
     for i in range(num_images_per_type):
         filename = image_type + "_" + str(i) + ".bmp"
-        camera.capture("images/"+filename, format='bmp')
+        camera.capture("images/"+filename, format='rgb', resize=(352, 240))
         print(filename)
         time.sleep(1)
