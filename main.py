@@ -31,7 +31,6 @@ print("Model Trained")
 camera.start_preview()
 
 while True:
-    time.sleep(2)
     camera.capture("current.bmp", resize=(352, 240))
     image = Image.open("current.bmp")
     data = np.array(image)
