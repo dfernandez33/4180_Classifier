@@ -2,6 +2,7 @@ import io
 import time
 from Classifier import ImageClassifier
 import numpy as np
+from PIL import Image
 from joblib import dump, load
 import picamera
 
@@ -30,12 +31,10 @@ print("Model Trained")
 camera.start_preview()
 
 while True:
-    stream = io.BytesIO()
     time.sleep(2)
-
-    output = np.empty((240, 352, 3), dtype=np.uint8)
-    camera.capture(output, format="bmp", resize=(352, 240))
-
+    camera.capture("current.bmp", resize=(352, 240))
+    image = Image.open("current.bmp")
+    data = np.array(image)
     # Construct a numpy array from the stream
-    features = img_clf.extract_image_features([output])
+    features = img_clf.extract_image_features([data])
     print(img_clf.predict_labels(features))
