@@ -9,6 +9,8 @@ myargs = sys.argv[1:]
 camera = picamera.PiCamera()
 camera.resolution = (352, 240)
 camera.color_effects = (128, 128)  # turn camera to black and white
+camera.start_preview()
+time.sleep(2)
 
 
 if len(myargs) <= 1:
