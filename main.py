@@ -33,5 +33,5 @@ while True:
     output = np.empty((240, 320, 3), dtype=np.uint8)
     camera.capture(output, format="rgb", resize=(320, 240))
     # Construct a numpy array from the stream
-    features = img_clf.extract_image_features(output)
+    features = img_clf.extract_image_features([output])
     print(img_clf.predict_labels(features))
